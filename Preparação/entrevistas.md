@@ -70,3 +70,213 @@ Antes da entrevista:
   * Treine alguns desafios no Hackerrank ou Exercism
   * Reveja os principais comandos SQL
   * Prepare exemplos práticos de projetos em PHP que você já fez (como esse seu CRUD)
+
+
+==================================================================================
+
+# Respostas
+
+### ✅ == (igualdade com conversão de tipo)
+ * Compara apenas os valores, ignorando os tipos.
+ * PHP tenta converter os tipos antes de comparar.
+
+🔸 Exemplo:
+```php
+var_dump(5 == "5");   // true
+var_dump(0 == false); // true
+var_dump(null == 0);  // true
+
+```
+
+### ✅ === (identidade ou igualdade estrita)
+ * Compara valor E tipo.
+ * Não faz conversão de tipo.
+
+🔸 Exemplo:
+```php
+var_dump(5 === "5");   // false (número vs string)
+var_dump(0 === false); // false (inteiro vs booleano)
+var_dump(null === 0);  // false
+var_dump(5 === 5);     // true
+
+```
+
+### 🛡️ Dica de segurança:
+Sempre que possível, use `===` para evitar erros lógicos e falhas de segurança, especialmente ao comparar valores vindos de formulários ou banco de dados.
+
+
+========================================================================================
+
+
+Os comandos `include`, `require` e `require_once` são usados para inserir e reutilizar arquivos (como cabeçalhos, funções, classes, conexões com banco de dados, etc.). Mas eles têm diferenças importantes em como lidam com erros e repetição.
+
+### ✅ include
+ * Inclui e executa um arquivo PHP.
+ * **Se o arquivo não existir, gera um aviso (**Warning**) e o script continua executando.
+
+```php
+include 'menu.php';
+
+```
+
+🔹 Se `menu.php` não for encontrado:
+
+```plaintext
+
+Warning: include(menu.php): failed to open stream...
+(Script continua rodando)
+
+```
+
+### ✅ require
+ * Também inclui e executa um arquivo PHP.
+ * **Se o arquivo não existir, gera um erro fatal (**Fatal error**) e o script para imediatamente.
+```php
+require 'config.php';
+
+```
+🔹 Se `config.php` não for encontrado:
+
+
+```plaintext
+
+Fatal error: require(): Failed opening required 'config.php'
+(Script para aqui)
+
+```
+
+
+### ✅ require_once
+ * Funciona como **require**, mas garante que o arquivo só será incluído uma vez, mesmo que você o chame de novo.
+ * Evita problemas de redeclaração de funções, variáveis ou classes.
+
+```php
+require_once 'conexao.php';
+
+```
+
+🔹 Útil quando você precisa garantir que um arquivo não será carregado duas vezes por acidente.
+
+
+
+### 💡 Quando usar o quê?
+ * Use `require` ou `require_once` para arquivos essenciais (ex: conexão com banco, arquivos de configuração).
+ * Use `include` para elementos não críticos (ex: blocos opcionais, menus, banners).
+ * Use `require_once` para evitar duplicações, especialmente com funções ou classes.
+
+
+
+### ✅ Funções com arrays em PHP
+🔹 `array_map()`
+Aplica uma função em cada elemento de um array e retorna um novo array com os resultados.
+
+```php
+$numeros = [1, 2, 3];
+$dobrados = array_map(function($n) {
+    return $n * 2;
+}, $numeros);
+
+print_r($dobrados); // [2, 4, 6]
+```
+
+
+🔹 `array_filter()`
+Filtra os elementos de um array com base em uma função de condição.
+```php
+$valores = [1, 2, 3, 4, 5];
+
+$pares = array_filter($valores, function($n) {
+    return $n % 2 === 0;
+});
+
+print_r($pares); // [1 => 2, 3 => 4]
+
+```
+>Repare que as chaves originais são mantidas.
+
+🔹 `explode()`
+Divide uma string em partes, transformando em um array, usando um delimitador.
+```php
+
+$frase = "PHP é incrível";
+$palavras = explode(" ", $frase);
+
+print_r($palavras); // ["PHP", "é", "incrível"]
+
+```
+
+🔹 `implode()`
+Faz o oposto de `explode()`: junta os elementos de um array em uma string, com um separador.
+```php
+
+$itens = ["maçã", "banana", "laranja"];
+$texto = implode(", ", $itens);
+
+echo $texto; // maçã, banana, laranja
+
+```
+
+### ✅ Validação: `isset()`, `empty()` e `is_null()`
+Essas funções testam se variáveis existem ou têm conteúdo. Vamos comparar:
+
+Função	                     Verifica se...	                                Exemplo
+`isset()`	                  A variável existe e não é null	                `isset($x)`
+`empty()`	                  A variável não existe ou tem valor “vazio”	    `empty($x)`
+`is_null()`	                A variável tem valor `null`	                   `is_null($x)`
+
+
+🔸 `isset()`
+```php
+$x = null;
+var_dump(isset($x)); // false (porque é null)
+
+$y = "";
+var_dump(isset($y)); // true (existe e não é null)
+
+```
+
+🔸 `empty()`
+```php
+$a = "";
+$b = 0;
+$c = null;
+$d = [];
+
+var_dump(empty($a)); // true
+var_dump(empty($b)); // true
+var_dump(empty($c)); // true
+var_dump(empty($d)); // true
+
+```
+
+🔸 `is_null()`
+
+```php
+
+$z = null;
+var_dump(is_null($z)); // true
+
+$t = 0;
+var_dump(is_null($t)); // false
+
+```
+
+✅ **Resumo final:**
+
+| Valor        | `isset()` | `empty()` | `is_null()`               |
+|--------------|-----------|-----------|---------------------------|
+| `""`         | ✅         | ✅         | ❌                         |
+| `0`          | ✅         | ✅         | ❌                         |
+| `null`       | ❌         | ✅         | ✅                         |
+| `[]`         | ✅         | ✅         | ❌                         |
+| não definida | ❌         | ✅         | ⚠️ erro (se usada sem `isset`) |
+
+
+
+### 💡 Dicas:
+ * Para usar emojis como ✅, ❌ e ⚠️, você pode simplesmente copiá-los e colá-los direto no .md.
+ * Para destacar o código (isset()), use crase simples: `isset()`
+ * Para criar negrito ou títulos, use ** ou # conforme o nível desejado.
+
+
+
