@@ -39,6 +39,7 @@ Dos Itens (perifericos)
         - ID
         - Nome do usuario
         - Nome do kit
+        - matricula
 
 
 Sera apresentado na Busca ou Pesquisa
@@ -57,7 +58,7 @@ Perfil (Editavel)
   - Telefone
   - Setor
 
-Cadastro
+Cadastro de Usuario
   - Nome
   - Email
   - Matricula
@@ -67,3 +68,22 @@ Cadastro
     - 1  - Usuario
     - 2  - ADM        - Comprovação Via Email do Master
     - 3  - Master     - (USUARIO JÀ CADASTRADO) - Confirmação Via Email
+
+
+USO exclusivo da ADM   
+Cadastro de Pariferico
+  - Nome
+  - Marca
+  - Modelo
+  - Observação
+  - Gerente Responsavel
+     Automatico
+    - Data Cadastro
+    - ID (Individual)
+
+     Cadastro do Kit
+        O cadastro pode ser efetuado por
+        - ID
+        - nome
+        Dentro da pagina de Cadastro de Kit vai ter ID(Para o KIT automatico)
+            Cadastrar +
