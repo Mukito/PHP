@@ -87,3 +87,17 @@ Cadastro de Pariferico
         - nome
         Dentro da pagina de Cadastro de Kit vai ter ID(Para o KIT automatico)
             Cadastrar +
+
+
+==================================================================================
+
+
+
+
+
+
+
+
+
+
+    
