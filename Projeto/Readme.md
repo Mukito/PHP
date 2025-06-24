@@ -93,7 +93,9 @@ Cadastro de Pariferico
 
 
 
-
+Inteligencia artificial Sentinela
+Para Verificar a integridade do codigo
+https://sentry.io/welcome/
 
 
 
